@@ -103,17 +103,20 @@ public class InteractionUtils
 
         WorldPoint closestTile = null;
 
-        if (trueSafeTiles.size() > 0)
+        if (!trueSafeTiles.isEmpty())
         {
             float closest = 999;
+            float distanceToTarget = 999;
             for (Tile closeTile : trueSafeTiles)
             {
                 float testDistance = distanceTo2DHypotenuse(client.getLocalPlayer().getWorldLocation(), closeTile.getWorldLocation());
+                float testDistanceToTarget = distanceTo2DHypotenuse(closeTile.getWorldLocation(), target.getWorldLocation());
 
-                if (testDistance < closest)
+                if (testDistance < closest || (testDistance == closest && testDistanceToTarget < distanceToTarget))
                 {
                     closestTile = closeTile.getWorldLocation();
                     closest = testDistance;
+                    distanceToTarget = testDistanceToTarget;
                 }
             }
         }
